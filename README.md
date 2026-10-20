@@ -40,7 +40,7 @@ Este projeto já vem com o arquivo `.github/workflows/deploy.yml` configurado.
 
 2. Conecte e envie o código:
    ```bash
-   git remote add origin https://github.com/snowLH/NOME-DO-SEU-REPOSITORIO.git
+   git remote add origin https://github.com/snowLH/cryoport.git
    git branch -M main
    git push -u origin main
    ```
@@ -49,7 +49,7 @@ Este projeto já vem com o arquivo `.github/workflows/deploy.yml` configurado.
    - No seu repositório no GitHub, vá em **Settings** > **Pages**.
    - Em **Build and deployment** > **Source**, selecione: **GitHub Actions**.
    - Pronto! Em menos de 1 minuto seu site estará no ar em:  
-     `https://snowLH.github.io/NOME-DO-SEU-REPOSITORIO/`
+     `https://snowLH.github.io/cryoport/`
 
 ---
 
@@ -57,7 +57,7 @@ Este projeto já vem com o arquivo `.github/workflows/deploy.yml` configurado.
 
 1. Faça login em [vercel.com](https://vercel.com) com a sua conta do GitHub.
 2. Clique em **"Add New..."** > **"Project"**.
-3. Selecione o repositório `cryo-portfolio` que você subiu para o GitHub.
+3. Selecione o repositório `cryoport` que você subiu para o GitHub.
 4. O Vercel detectará automaticamente o Vite. Clique em **"Deploy"**.
 5. Seu site receberá uma URL ultra rápida com SSL gratuito (ex: `cryo-portfolio.vercel.app`) e atualizará a cada `git push`!
 
