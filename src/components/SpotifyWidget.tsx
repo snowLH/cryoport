@@ -54,13 +54,25 @@ export function SpotifyWidget({ presence }: SpotifyWidgetProps) {
 
   // If listening to Spotify live on Discord
   if (isListening && spotify) {
+    const trackUrl = spotify.track_id
+      ? `https://open.spotify.com/track/${spotify.track_id}`
+      : 'https://open.spotify.com';
+
     return (
-      <div className="col-span-1 md:col-span-2 md:row-span-1 relative overflow-hidden rounded-3xl bg-zinc-900/50 backdrop-blur-md border border-white/5 p-5 flex flex-col justify-between transition-all duration-300 hover:border-emerald-500/20 group">
+      <a
+        href={trackUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="col-span-1 md:col-span-2 md:row-span-1 relative overflow-hidden rounded-3xl bg-zinc-900/50 backdrop-blur-md border border-white/5 p-5 flex flex-col justify-between transition-all duration-300 hover:border-emerald-500/40 group shadow-sm hover:shadow-[0_0_35px_-5px_rgba(16,185,129,0.25)] block cursor-pointer"
+      >
         {/* Subtle top emerald line */}
         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-400/30 to-transparent" />
 
+        {/* Ambient emerald glow */}
+        <div className="pointer-events-none absolute -right-10 -bottom-10 w-40 h-40 rounded-full bg-emerald-500/10 blur-2xl group-hover:bg-emerald-500/20 transition-all duration-500" />
+
         {/* Header: Title + Equalizer */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between relative z-10">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-[11px] font-mono font-medium tracking-wider text-emerald-400 uppercase">
@@ -68,17 +80,21 @@ export function SpotifyWidget({ presence }: SpotifyWidgetProps) {
             </span>
           </div>
 
-          {/* Equalizer animation */}
-          <div className="flex items-end gap-[2px] h-3">
-            <span className="w-[2px] bg-emerald-400 rounded-full animate-bounce" style={{ height: '10px', animationDuration: '0.8s' }} />
-            <span className="w-[2px] bg-emerald-400 rounded-full animate-bounce" style={{ height: '14px', animationDuration: '1.2s' }} />
-            <span className="w-[2px] bg-emerald-400 rounded-full animate-bounce" style={{ height: '7px', animationDuration: '0.6s' }} />
-            <span className="w-[2px] bg-emerald-400 rounded-full animate-bounce" style={{ height: '12px', animationDuration: '1s' }} />
+          <div className="flex items-center gap-3">
+            {/* Equalizer animation */}
+            <div className="flex items-end gap-[2px] h-3">
+              <span className="w-[2px] bg-emerald-400 rounded-full animate-bounce" style={{ height: '10px', animationDuration: '0.8s' }} />
+              <span className="w-[2px] bg-emerald-400 rounded-full animate-bounce" style={{ height: '14px', animationDuration: '1.2s' }} />
+              <span className="w-[2px] bg-emerald-400 rounded-full animate-bounce" style={{ height: '7px', animationDuration: '0.6s' }} />
+              <span className="w-[2px] bg-emerald-400 rounded-full animate-bounce" style={{ height: '12px', animationDuration: '1s' }} />
+            </div>
+
+            <ExternalLink className="w-3.5 h-3.5 text-zinc-500 group-hover:text-emerald-300 transition-colors" />
           </div>
         </div>
 
         {/* Song info & Cover */}
-        <div className="flex items-center gap-3.5 my-1">
+        <div className="flex items-center gap-3.5 my-1 relative z-10">
           {spotify.album_art_url ? (
             <img
               src={spotify.album_art_url}
@@ -95,14 +111,14 @@ export function SpotifyWidget({ presence }: SpotifyWidgetProps) {
             <h2 className="text-sm font-semibold text-white truncate group-hover:text-emerald-300 transition-colors">
               {spotify.song}
             </h2>
-            <p className="text-xs text-zinc-400 truncate">
+            <p className="text-xs text-zinc-400 truncate mt-0.5">
               {spotify.artist}
             </p>
           </div>
         </div>
 
         {/* Live Progress Bar */}
-        <div>
+        <div className="relative z-10">
           <div className="w-full bg-zinc-800/80 h-1 rounded-full overflow-hidden">
             <div
               className="bg-emerald-400 h-full rounded-full transition-all duration-300"
@@ -114,7 +130,7 @@ export function SpotifyWidget({ presence }: SpotifyWidgetProps) {
             <span>{totalSeconds}</span>
           </div>
         </div>
-      </div>
+      </a>
     );
   }
 

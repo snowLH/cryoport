@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowUpRight, Flame, Layers } from 'lucide-react';
+import heroImg from '../assets/hero.png';
 
 export function CryoHiveWidget() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -45,34 +46,47 @@ export function CryoHiveWidget() {
           Projeto Principal
         </span>
 
-        <div className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 group-hover:text-cyan-300 group-hover:scale-105 transition-all">
-          <Layers className="w-3.5 h-3.5" />
+        <div className="flex items-center gap-2">
+          <span className="text-[11px] font-mono text-zinc-500 group-hover:text-cyan-300 transition-colors flex items-center gap-1">
+            <span>Ver código</span>
+            <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </span>
+          <div className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 group-hover:text-cyan-300 group-hover:scale-105 transition-all">
+            <Layers className="w-3.5 h-3.5" />
+          </div>
         </div>
       </div>
 
-      {/* Project Description */}
-      <div className="relative z-10 my-1">
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg md:text-xl font-bold tracking-tight text-white group-hover:text-cyan-100 transition-colors flex items-center gap-2">
-            CryoHive
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-300 border border-cyan-400/20 font-normal">
-              v1.0
-            </span>
-          </h2>
-
-          <div className="flex items-center gap-1 text-xs font-mono text-zinc-400 group-hover:text-cyan-300 transition-colors">
-            <span>Ver código</span>
-            <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-          </div>
+      {/* Main Content with Preview Artwork */}
+      <div className="relative z-10 my-1 flex items-center gap-4">
+        {/* Preview image badge */}
+        <div className="relative shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border border-white/10 bg-zinc-950/80 p-1 group-hover:border-cyan-500/40 transition-colors shadow-inner">
+          <img
+            src={heroImg}
+            alt="CryoHive Preview"
+            className="w-full h-full object-cover rounded-xl group-hover:scale-110 transition-transform duration-500"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/60 to-transparent pointer-events-none" />
         </div>
 
-        <p className="text-xs text-zinc-400 mt-1 line-clamp-2">
-          Orquestração de inteligência artificial, agentes reativos e interfaces em Glassmorphism de alto desempenho.
-        </p>
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2">
+            <h2 className="text-base sm:text-lg font-bold tracking-tight text-white group-hover:text-cyan-100 transition-colors truncate">
+              CryoHive
+            </h2>
+            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-300 border border-cyan-400/20 font-normal shrink-0">
+              v1.0
+            </span>
+          </div>
+
+          <p className="text-xs text-zinc-400 mt-1 line-clamp-2 leading-relaxed">
+            Orquestração de inteligência artificial, agentes reativos e interfaces em Glassmorphism de alto desempenho.
+          </p>
+        </div>
       </div>
 
       {/* Tags */}
-      <div className="flex items-center gap-2 relative z-10 pt-2 border-t border-white/5 text-[11px] font-mono text-zinc-500">
+      <div className="flex items-center gap-2 relative z-10 pt-2 border-t border-white/5 text-[11px] font-mono text-zinc-500 overflow-x-auto no-scrollbar">
         <span className="text-zinc-400">Stack:</span>
         <span className="px-2 py-0.5 rounded bg-white/5 text-zinc-300 border border-white/5">Next.js</span>
         <span className="px-2 py-0.5 rounded bg-white/5 text-zinc-300 border border-white/5">Claude AI</span>

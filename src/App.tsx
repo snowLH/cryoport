@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Variants } from 'framer-motion';
-import { Check, Snowflake } from 'lucide-react';
+import { Check, Snowflake, Mail } from 'lucide-react';
 import { SnowParticles } from './components/SnowParticles';
 import { ProfileWidget } from './components/ProfileWidget';
 import { SpotifyWidget } from './components/SpotifyWidget';
 import { CryoHiveWidget } from './components/CryoHiveWidget';
+import { SecondProjectWidget } from './components/SecondProjectWidget';
+import { StatusClockWidget } from './components/StatusClockWidget';
 import {
   SocialWidget,
   GithubLogo,
@@ -95,10 +97,10 @@ export default function App() {
         >
           <div className="flex items-center gap-2">
             <Snowflake className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
-            <span className="tracking-wider uppercase text-zinc-400">CRYO // Y2K BENTO</span>
+            <span className="tracking-wider uppercase text-zinc-400">CRYO // PORTFOLIO</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            <span className={`w-1.5 h-1.5 rounded-full ${presence.isLive ? 'bg-emerald-500' : 'bg-cyan-500'}`} />
             <span>Lanyard Live: {presence.isLive ? 'Conectado' : 'Standby'}</span>
           </div>
         </motion.div>
@@ -110,22 +112,27 @@ export default function App() {
           animate="show"
           className="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-auto md:auto-rows-[180px]"
         >
-          {/* 1. PROFILE WIDGET (2 colunas, 2 linhas) */}
+          {/* Row 1 & 2: 1. PROFILE WIDGET (2 colunas, 2 linhas) */}
           <motion.div variants={itemVariants} className="col-span-1 md:col-span-2 md:row-span-2">
             <ProfileWidget presence={presence} />
           </motion.div>
 
-          {/* 2. SPOTIFY / LANYARD SYNC WIDGET (2 colunas, 1 linha) */}
-          <motion.div variants={itemVariants} className="col-span-1 md:col-span-2 md:row-span-1">
-            <SpotifyWidget presence={presence} />
-          </motion.div>
-
-          {/* 3. CRYOHIVE WIDGET (2 colunas, 1 linha) */}
+          {/* Row 1: 2. CRYOHIVE WIDGET (2 colunas, 1 linha) */}
           <motion.div variants={itemVariants} className="col-span-1 md:col-span-2 md:row-span-1">
             <CryoHiveWidget />
           </motion.div>
 
-          {/* 4. GITHUB MINI WIDGET (1 coluna, 1 linha) */}
+          {/* Row 2: 3. AEGIS AI PROJECT (2 colunas, 1 linha) */}
+          <motion.div variants={itemVariants} className="col-span-1 md:col-span-2 md:row-span-1">
+            <SecondProjectWidget />
+          </motion.div>
+
+          {/* Row 3: 4. SPOTIFY / LANYARD SYNC WIDGET (2 colunas, 1 linha) */}
+          <motion.div variants={itemVariants} className="col-span-1 md:col-span-2 md:row-span-1">
+            <SpotifyWidget presence={presence} />
+          </motion.div>
+
+          {/* Row 3: 5. GITHUB MINI WIDGET (1 coluna, 1 linha) */}
           <motion.div variants={itemVariants} className="col-span-1 md:col-span-1 md:row-span-1">
             <SocialWidget
               title="GitHub"
@@ -136,31 +143,7 @@ export default function App() {
             />
           </motion.div>
 
-          {/* 5. INSTAGRAM MINI WIDGET (1 coluna, 1 linha) */}
-          <motion.div variants={itemVariants} className="col-span-1 md:col-span-1 md:row-span-1">
-            <SocialWidget
-              title="Instagram"
-              handle="@henry_bestsw"
-              href="https://www.instagram.com/henry_bestsw/"
-              icon={<InstagramLogo className="w-7 h-7" />}
-              accentColor="text-pink-400 group-hover:text-pink-300"
-              hoverBorder="hover:border-pink-500/20"
-            />
-          </motion.div>
-
-          {/* 6. ROBLOX MINI WIDGET (1 coluna, 1 linha) */}
-          <motion.div variants={itemVariants} className="col-span-1 md:col-span-1 md:row-span-1">
-            <SocialWidget
-              title="Roblox"
-              handle="Henry"
-              href="https://www.roblox.com/users/148506481/profile"
-              icon={<RobloxLogo className="w-7 h-7" />}
-              accentColor="text-red-400 group-hover:text-red-300"
-              hoverBorder="hover:border-red-500/20"
-            />
-          </motion.div>
-
-          {/* 7. DISCORD MINI WIDGET (1 coluna, 1 linha) */}
+          {/* Row 3: 6. DISCORD MINI WIDGET (1 coluna, 1 linha) */}
           <motion.div variants={itemVariants} className="col-span-1 md:col-span-1 md:row-span-1">
             <SocialWidget
               title="Discord"
@@ -174,6 +157,49 @@ export default function App() {
             />
           </motion.div>
 
+          {/* Row 4: 7. E-MAIL MINI WIDGET (1 coluna, 1 linha) */}
+          <motion.div variants={itemVariants} className="col-span-1 md:col-span-1 md:row-span-1">
+            <SocialWidget
+              title="E-mail"
+              handle="henrysoldan@gmail.com"
+              href="#"
+              isAction={true}
+              onActionClick={() => handleCopy('henrysoldan@gmail.com', 'E-mail')}
+              icon={<Mail className="w-7 h-7" />}
+              accentColor="text-emerald-400 group-hover:text-emerald-300"
+              hoverBorder="hover:border-emerald-500/20"
+            />
+          </motion.div>
+
+          {/* Row 4: 8. INSTAGRAM MINI WIDGET (1 coluna, 1 linha) */}
+          <motion.div variants={itemVariants} className="col-span-1 md:col-span-1 md:row-span-1">
+            <SocialWidget
+              title="Instagram"
+              handle="@henry_bestsw"
+              href="https://www.instagram.com/henry_bestsw/"
+              icon={<InstagramLogo className="w-7 h-7" />}
+              accentColor="text-pink-400 group-hover:text-pink-300"
+              hoverBorder="hover:border-pink-500/20"
+            />
+          </motion.div>
+
+          {/* Row 4: 9. ROBLOX MINI WIDGET (1 coluna, 1 linha) */}
+          <motion.div variants={itemVariants} className="col-span-1 md:col-span-1 md:row-span-1">
+            <SocialWidget
+              title="Roblox"
+              handle="Henry"
+              href="https://www.roblox.com/users/148506481/profile"
+              icon={<RobloxLogo className="w-7 h-7" />}
+              accentColor="text-red-400 group-hover:text-red-300"
+              hoverBorder="hover:border-red-500/20"
+            />
+          </motion.div>
+
+          {/* Row 4: 10. STATUS & CLOCK WIDGET (1 coluna, 1 linha) */}
+          <motion.div variants={itemVariants} className="col-span-1 md:col-span-1 md:row-span-1">
+            <StatusClockWidget />
+          </motion.div>
+
         </motion.div>
       </main>
 
@@ -184,9 +210,9 @@ export default function App() {
         <div className="flex items-center justify-center gap-2">
           <span>Henry (@snowLH)</span>
           <span>•</span>
-          <span>Lanyard API & Next/React</span>
+          <span>React 19 & Tailwind CSS</span>
           <span>•</span>
-          <span className="text-zinc-500">Tema Cryo Aesthetic</span>
+          <span className="text-zinc-500">Cryo Dark Aesthetic</span>
         </div>
       </footer>
 
