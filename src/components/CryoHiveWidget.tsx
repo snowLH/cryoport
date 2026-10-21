@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowUpRight, Flame, Layers } from 'lucide-react';
+import cryohivePreview from '../assets/cryohive-preview.png';
 import heroImg from '../assets/hero.png';
 
 interface CryoHiveWidgetProps {
@@ -18,9 +19,11 @@ export function CryoHiveWidget({ isHalloween = true }: CryoHiveWidgetProps) {
     });
   };
 
+  const previewImage = cryohivePreview || heroImg;
+
   return (
     <a
-      href="https://github.com/snowLH"
+      href="https://cryo-hive-cryohive-web.vercel.app"
       target="_blank"
       rel="noopener noreferrer"
       onMouseMove={handleMouseMove}
@@ -64,12 +67,12 @@ export function CryoHiveWidget({ isHalloween = true }: CryoHiveWidgetProps) {
           isHalloween ? 'bg-orange-500/15 border border-orange-500/40 text-orange-300' : 'bg-cyan-500/10 border border-cyan-400/30 text-cyan-300'
         } px-2.5 py-0.5 text-[11px] font-mono font-medium uppercase`}>
           <Flame className={`w-3 h-3 ${isHalloween ? 'text-orange-400 fill-orange-400/30' : 'text-cyan-400 fill-cyan-400/30'}`} />
-          {isHalloween ? '🎃 Projeto Principal' : 'Projeto Principal'}
+          {isHalloween ? '🎃 Ecossistema & Segundo Cérebro' : 'Projeto Principal'}
         </span>
 
         <div className="flex items-center gap-2 pr-6">
           <span className={`text-[11px] font-mono ${isHalloween ? 'text-orange-300/70 group-hover:text-orange-300' : 'text-zinc-500 group-hover:text-cyan-300'} transition-colors flex items-center gap-1`}>
-            <span>Ver código</span>
+            <span>Acessar App</span>
             <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </span>
           <div className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 group-hover:text-orange-300 group-hover:scale-105 transition-all">
@@ -78,18 +81,18 @@ export function CryoHiveWidget({ isHalloween = true }: CryoHiveWidgetProps) {
         </div>
       </div>
 
-      {/* Main Content with Preview Artwork */}
+      {/* Main Content with Real Preview Artwork */}
       <div className="relative z-10 my-1 flex items-center gap-4">
         {/* Preview image badge */}
-        <div className={`relative shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border ${
+        <div className={`relative shrink-0 w-20 h-16 sm:w-24 sm:h-20 rounded-2xl overflow-hidden border ${
           isHalloween ? 'border-orange-500/30 group-hover:border-orange-500/60' : 'border-white/10 group-hover:border-cyan-500/40'
-        } bg-zinc-950/80 p-1 transition-colors shadow-inner`}>
+        } bg-zinc-950/80 p-0.5 transition-colors shadow-inner`}>
           <img
-            src={heroImg}
-            alt="CryoHive Preview"
+            src={previewImage}
+            alt="CryoHive Live App Preview"
             className="w-full h-full object-cover rounded-xl group-hover:scale-110 transition-transform duration-500"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/60 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/50 to-transparent pointer-events-none" />
         </div>
 
         <div className="min-w-0 flex-1">
@@ -101,22 +104,24 @@ export function CryoHiveWidget({ isHalloween = true }: CryoHiveWidgetProps) {
             <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
               isHalloween ? 'bg-orange-500/10 text-orange-300 border border-orange-400/30' : 'bg-cyan-500/10 text-cyan-300 border border-cyan-400/20'
             } font-normal shrink-0`}>
-              v1.0
+              Live PWA
             </span>
           </div>
 
           <p className="text-xs text-zinc-400 mt-1 line-clamp-2 leading-relaxed">
-            Orquestração de inteligência artificial, agentes reativos e interfaces em Glassmorphism de alto desempenho.
+            Segundo cérebro e produtividade: captura com IA, mapa neural em 3D (Three.js), Câmara de Foco com gerador de som procedural e PWA offline.
           </p>
         </div>
       </div>
 
       {/* Tags */}
-      <div className={`flex items-center gap-2 relative z-10 pt-2 border-t ${isHalloween ? 'border-orange-500/15' : 'border-white/5'} text-[11px] font-mono text-zinc-500 overflow-x-auto no-scrollbar`}>
+      <div className={`flex items-center gap-1.5 sm:gap-2 relative z-10 pt-2 border-t ${isHalloween ? 'border-orange-500/15' : 'border-white/5'} text-[11px] font-mono text-zinc-500 overflow-x-auto no-scrollbar`}>
         <span className={isHalloween ? 'text-orange-400/80 font-medium' : 'text-zinc-400'}>Stack:</span>
-        <span className={`px-2 py-0.5 rounded ${isHalloween ? 'bg-orange-500/5 text-orange-200 border border-orange-500/20' : 'bg-white/5 text-zinc-300 border border-white/5'}`}>Next.js</span>
-        <span className={`px-2 py-0.5 rounded ${isHalloween ? 'bg-orange-500/5 text-orange-200 border border-orange-500/20' : 'bg-white/5 text-zinc-300 border border-white/5'}`}>Claude AI</span>
-        <span className={`px-2 py-0.5 rounded ${isHalloween ? 'bg-orange-500/5 text-orange-200 border border-orange-500/20' : 'bg-white/5 text-zinc-300 border border-white/5'}`}>Tailwind</span>
+        <span className={`px-2 py-0.5 rounded ${isHalloween ? 'bg-orange-500/5 text-orange-200 border border-orange-500/20' : 'bg-white/5 text-zinc-300 border border-white/5'}`}>React 19</span>
+        <span className={`px-2 py-0.5 rounded ${isHalloween ? 'bg-orange-500/5 text-orange-200 border border-orange-500/20' : 'bg-white/5 text-zinc-300 border border-white/5'}`}>Supabase</span>
+        <span className={`px-2 py-0.5 rounded ${isHalloween ? 'bg-orange-500/5 text-orange-200 border border-orange-500/20' : 'bg-white/5 text-zinc-300 border border-white/5'}`}>Three.js 3D</span>
+        <span className={`px-2 py-0.5 rounded ${isHalloween ? 'bg-orange-500/5 text-orange-200 border border-orange-500/20' : 'bg-white/5 text-zinc-300 border border-white/5'}`}>Gemini AI</span>
+        <span className={`px-2 py-0.5 rounded ${isHalloween ? 'bg-orange-500/5 text-orange-200 border border-orange-500/20' : 'bg-white/5 text-zinc-300 border border-white/5'}`}>Web Audio</span>
       </div>
     </a>
   );
