@@ -1,9 +1,9 @@
 export interface ProjectItem {
   id: string;
   title: string;
+  subtitle?: string;
   version?: string;
   badge: string;
-  spookyBadge?: string;
   statusLabel?: string;
   description: string;
   tags: string[];
@@ -24,7 +24,6 @@ export const projectsData: ProjectItem[] = [
     title: 'CryoHive',
     version: 'Live PWA',
     badge: 'Ecossistema & Segundo Cérebro',
-    spookyBadge: '🎃 Ecossistema & Segundo Cérebro',
     statusLabel: 'Online',
     description: 'Seu segundo cérebro inteligente: organize notas com IA, explore conexões em mapa 3D e atinja hiperfoco com sons árticos no desktop e celular.',
     tags: ['React 19', 'Supabase', 'Three.js 3D', 'Gemini AI', 'Web Audio'],
@@ -34,15 +33,16 @@ export const projectsData: ProjectItem[] = [
     accent: 'cyan',
   },
   {
-    id: 'cryo-ai',
-    title: 'Cryo AI // Core Intelligence',
-    version: 'v0.1-alpha',
-    badge: 'IA Proprietária em Desenvolvimento',
-    spookyBadge: '🎃 IA em Desenvolvimento',
-    statusLabel: 'Em Breve',
-    description: 'Inteligência artificial proprietária focada em automação autônoma, contexto contínuo, agentes neurais e processamento multimodal de alta velocidade.',
-    tags: ['Python', 'LLM & Neural Core', 'TypeScript', 'Em Desenvolvimento', 'Em Breve'],
-    githubUrl: 'https://github.com/snowLH',
+    id: 'helena',
+    title: 'H.E.L.E.N.A.',
+    subtitle: 'Heurística de Execução Local e Estruturação Neural Autônoma',
+    version: 'Live PWA',
+    badge: 'IA & HUD Futurista J.A.R.V.I.S.',
+    statusLabel: 'Online / PWA',
+    description: 'Assistente de IA estilo J.A.R.V.I.S. com síntese de voz neural holográfica, HUD futurista responsivo, telemetria em tempo real e automação autônoma.',
+    tags: ['React 19', 'Neural TTS', 'Web Audio DSP', 'Python', 'PWA'],
+    liveUrl: 'https://helena-7j4260dti-snow-lh-s-projects.vercel.app',
+    githubUrl: 'https://github.com/snowLH/helena-hud',
     featured: true,
     accent: 'indigo',
   },

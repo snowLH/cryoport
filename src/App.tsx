@@ -127,7 +127,7 @@ export default function App() {
             <CryoHiveWidget />
           </motion.div>
 
-          {/* Row 2: 3. CRYO AI PROJECT (2 colunas, 1 linha) */}
+          {/* Row 2: 3. H.E.L.E.N.A. AI PROJECT (2 colunas, 1 linha) */}
           <motion.div variants={itemVariants} className="col-span-1 md:col-span-2 md:row-span-1">
             <SecondProjectWidget />
           </motion.div>
