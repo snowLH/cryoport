@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowUpRight, Flame, Layers } from 'lucide-react';
-import cryohivePreview from '../assets/cryohive-preview.png';
-import heroImg from '../assets/hero.png';
+import { ArrowUpRight, Flame, Layers, Snowflake } from 'lucide-react';
 
 interface CryoHiveWidgetProps {
   isHalloween?: boolean;
@@ -18,8 +16,6 @@ export function CryoHiveWidget({ isHalloween = true }: CryoHiveWidgetProps) {
       y: e.clientY - rect.top,
     });
   };
-
-  const previewImage = cryohivePreview || heroImg;
 
   return (
     <a
@@ -81,18 +77,18 @@ export function CryoHiveWidget({ isHalloween = true }: CryoHiveWidgetProps) {
         </div>
       </div>
 
-      {/* Main Content with Real Preview Artwork */}
+      {/* Main Content with Snowflake Emblem */}
       <div className="relative z-10 my-1 flex items-center gap-4">
-        {/* Preview image badge */}
-        <div className={`relative shrink-0 w-20 h-16 sm:w-24 sm:h-20 rounded-2xl overflow-hidden border ${
-          isHalloween ? 'border-orange-500/30 group-hover:border-orange-500/60' : 'border-white/10 group-hover:border-cyan-500/40'
-        } bg-zinc-950/80 p-0.5 transition-colors shadow-inner`}>
-          <img
-            src={previewImage}
-            alt="CryoHive Live App Preview"
-            className="w-full h-full object-cover rounded-xl group-hover:scale-110 transition-transform duration-500"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/50 to-transparent pointer-events-none" />
+        {/* Snowflake Emblem Box */}
+        <div className={`relative shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden border ${
+          isHalloween
+            ? 'border-orange-500/30 group-hover:border-orange-500/60 bg-gradient-to-br from-orange-500/15 via-zinc-950 to-zinc-900 text-orange-400 shadow-[0_0_20px_-3px_rgba(249,115,22,0.25)]'
+            : 'border-cyan-500/30 group-hover:border-cyan-400/60 bg-gradient-to-br from-cyan-500/15 via-zinc-950 to-zinc-900 text-cyan-400 shadow-[0_0_20px_-3px_rgba(6,182,212,0.25)]'
+        } p-2.5 sm:p-3 flex items-center justify-center transition-all duration-500 shadow-inner group-hover:scale-105`}>
+          <Snowflake className={`w-full h-full ${
+            isHalloween ? 'text-orange-400' : 'text-cyan-400'
+          } group-hover:rotate-180 transition-transform duration-700 ease-out`} />
+          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/40 to-transparent pointer-events-none" />
         </div>
 
         <div className="min-w-0 flex-1">
@@ -108,8 +104,8 @@ export function CryoHiveWidget({ isHalloween = true }: CryoHiveWidgetProps) {
             </span>
           </div>
 
-          <p className="text-xs text-zinc-400 mt-1 line-clamp-2 leading-relaxed">
-            Segundo cérebro e produtividade: captura com IA, mapa neural em 3D (Three.js), Câmara de Foco com gerador de som procedural e PWA offline.
+          <p className="text-xs text-zinc-300 mt-1 leading-relaxed">
+            Seu segundo cérebro inteligente: organize notas com IA, explore conexões em mapa 3D e atinja hiperfoco com sons árticos no desktop e celular.
           </p>
         </div>
       </div>
