@@ -64,12 +64,14 @@ export function SnowParticles({ isHalloween = true }: SnowParticlesProps) {
     const particleCount = Math.min(140, Math.floor((width * height) / 9500));
     const particles: Particle[] = [];
 
-    // Mostly pumpkins (🎃), accompanied by bats (🦇) and ghosts (👻)
+    // Halloween spooky emojis
     const spookyEmojis = ['🎃', '🎃', '🎃', '🦇', '🎃', '👻', '🎃', '🕸️'];
+    // Normal Cryo & Cyber Dice emojis
+    const normalEmojis = ['🎲', '❄️', '💠', '✨', '🎲'];
 
     for (let i = 0; i < particleCount; i++) {
-      // 1 in every 4 particles is a floating spooky emoji when Halloween is active
-      const isEmoji = isHalloween && i % 4 === 0;
+      // 1 in 4 in Halloween, 1 in 10 in Normal mode
+      const isEmoji = isHalloween ? i % 4 === 0 : i % 10 === 0;
       const randColor = Math.random();
       const colorType: 'orange' | 'amber' | 'purple' | 'ice' = !isHalloween
         ? 'ice'
@@ -83,8 +85,8 @@ export function SnowParticles({ isHalloween = true }: SnowParticlesProps) {
         x: Math.random() * width,
         y: Math.random() * height,
         radius: isEmoji ? 14 : Math.random() * 2.2 + 1,
-        emojiSize: Math.floor(Math.random() * 10) + 18, // 18px to 28px
-        // In Halloween, embers and pumpkins gently float upwards like spooky fireflies
+        emojiSize: Math.floor(Math.random() * 8) + (isHalloween ? 18 : 16),
+        // In Halloween, embers and pumpkins gently float upwards; in normal snow, drifts downwards
         speedY: isHalloween ? -(Math.random() * 0.7 + 0.25) : Math.random() * 0.8 + 0.4,
         speedX: (Math.random() - 0.5) * 0.45,
         opacity: isEmoji ? Math.random() * 0.45 + 0.35 : Math.random() * 0.6 + 0.25,
@@ -92,7 +94,9 @@ export function SnowParticles({ isHalloween = true }: SnowParticlesProps) {
         vy: 0,
         colorType,
         isEmoji,
-        emoji: spookyEmojis[Math.floor(Math.random() * spookyEmojis.length)],
+        emoji: isHalloween
+          ? spookyEmojis[Math.floor(Math.random() * spookyEmojis.length)]
+          : normalEmojis[Math.floor(Math.random() * normalEmojis.length)],
       });
     }
 
@@ -155,7 +159,7 @@ export function SnowParticles({ isHalloween = true }: SnowParticlesProps) {
           ctx.save();
           ctx.globalAlpha = p.opacity;
           ctx.font = `${p.emojiSize || 22}px sans-serif`;
-          ctx.shadowColor = 'rgba(249, 115, 22, 0.85)';
+          ctx.shadowColor = isHalloween ? 'rgba(249, 115, 22, 0.85)' : 'rgba(56, 189, 248, 0.85)';
           ctx.shadowBlur = 12;
           ctx.fillText(p.emoji, p.x, p.y);
           ctx.restore();

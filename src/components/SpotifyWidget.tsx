@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { ExternalLink } from 'lucide-react';
 import type { DiscordPresenceData } from '../hooks/useDiscordPresence';
 import kogaCover from '../assets/koga-cover.jpg';
+import { BlueDice } from './BlueDice';
 
 interface SpotifyWidgetProps {
   presence: DiscordPresenceData;
@@ -179,6 +180,7 @@ export function SpotifyWidget({ presence, isHalloween = false }: SpotifyWidgetPr
         <div className="min-w-0 flex-1">
           <h2 className="text-sm font-semibold text-white tracking-tight group-hover:text-indigo-200 transition-colors flex items-center gap-1.5">
             <span>Koga 🌙</span>
+            {!isHalloween && <BlueDice size="xs" />}
             <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-400/20 font-normal">
               73 faixas
             </span>

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import { Check, Snowflake, Mail } from 'lucide-react';
 import { SnowParticles } from './components/SnowParticles';
+import { BlueDice } from './components/BlueDice';
 import { ProfileWidget } from './components/ProfileWidget';
 import { SpotifyWidget } from './components/SpotifyWidget';
 import { CryoHiveWidget } from './components/CryoHiveWidget';
@@ -136,10 +137,11 @@ export default function App() {
               </>
             ) : (
               <>
-                <Snowflake className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
+                <BlueDice size="xs" />
                 <span className="tracking-wider uppercase text-zinc-400 font-semibold">
                   CRYO // PORTFOLIO
                 </span>
+                <Snowflake className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
               </>
             )}
           </div>
@@ -277,7 +279,16 @@ export default function App() {
         <div className="flex items-center justify-center gap-2">
           <span>Henry (@snowLH)</span>
           <span>•</span>
-          <span>{isHalloween ? '🎃 Spooky Cryo Edition' : '❄️ Cryo Dark Aesthetic'}</span>
+          <span className="inline-flex items-center gap-1.5">
+            {isHalloween ? (
+              <span>🎃 Spooky Cryo Edition</span>
+            ) : (
+              <>
+                <BlueDice size="xs" />
+                <span>Cryo Cyber Aesthetic</span>
+              </>
+            )}
+          </span>
           <span>•</span>
           <span className="text-zinc-500">React 19 & Tailwind</span>
         </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowUpRight, Flame, Layers, Snowflake } from 'lucide-react';
+import { BlueDice } from './BlueDice';
 
 interface CryoHiveWidgetProps {
   isHalloween?: boolean;
@@ -34,12 +35,14 @@ export function CryoHiveWidget({ isHalloween = true }: CryoHiveWidgetProps) {
         isHalloween ? 'via-orange-500/40' : 'via-cyan-400/30'
       } to-transparent`} />
 
-      {/* Spooky corner pumpkin */}
-      {isHalloween && (
-        <span className="pointer-events-none absolute top-3 right-3 text-lg select-none opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all">
-          🎃
-        </span>
-      )}
+      {/* Corner accent: Pumpkin in Halloween, Blue Dice in Normal Mode */}
+      <div className="pointer-events-none absolute top-3 right-3 select-none transition-all">
+        {isHalloween ? (
+          <span className="text-lg opacity-50 group-hover:opacity-100 group-hover:scale-110">🎃</span>
+        ) : (
+          <BlueDice size="sm" className="opacity-75 group-hover:opacity-100" />
+        )}
+      </div>
 
       {/* Interactive Radial Glow (Follows cursor on hover) */}
       <div
