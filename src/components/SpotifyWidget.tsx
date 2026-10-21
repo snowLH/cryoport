@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
-import { ExternalLink, Music } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import type { DiscordPresenceData } from '../hooks/useDiscordPresence';
+import kogaCover from '../assets/koga-cover.jpg';
 
 interface SpotifyWidgetProps {
   presence: DiscordPresenceData;
+  isHalloween?: boolean;
 }
 
 const SpotifyIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
@@ -12,7 +14,7 @@ const SpotifyIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
   </svg>
 );
 
-export function SpotifyWidget({ presence }: SpotifyWidgetProps) {
+export function SpotifyWidget({ presence, isHalloween = false }: SpotifyWidgetProps) {
   const [progress, setProgress] = useState<number>(0);
   const [currentSeconds, setCurrentSeconds] = useState<string>('0:00');
   const [totalSeconds, setTotalSeconds] = useState<string>('0:00');
@@ -63,7 +65,7 @@ export function SpotifyWidget({ presence }: SpotifyWidgetProps) {
         href={trackUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="col-span-1 md:col-span-2 md:row-span-1 relative overflow-hidden rounded-3xl bg-zinc-900/50 backdrop-blur-md border border-white/5 p-5 flex flex-col justify-between transition-all duration-300 hover:border-emerald-500/40 group shadow-sm hover:shadow-[0_0_35px_-5px_rgba(16,185,129,0.25)] block cursor-pointer"
+        className={`col-span-1 md:col-span-2 md:row-span-1 relative overflow-hidden rounded-3xl bg-zinc-900/50 backdrop-blur-md border border-white/5 p-5 flex flex-col justify-between transition-all duration-300 hover:border-emerald-500/40 group shadow-sm hover:shadow-[0_0_35px_-5px_rgba(16,185,129,0.25)] block cursor-pointer`}
       >
         {/* Subtle top emerald line */}
         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-400/30 to-transparent" />
@@ -134,51 +136,63 @@ export function SpotifyWidget({ presence }: SpotifyWidgetProps) {
     );
   }
 
-  // Fallback: Fixed Featured Playlist "CENA 0"
+  // Fallback: Featured Playlist "Koga 🌙"
   return (
     <a
-      href="https://open.spotify.com/user/31pcajmiw7qy7hkm4jhc26gb3mgi"
+      href="https://open.spotify.com/playlist/0pIqQkV8dPpdjvXWE5NhUi?si=6b05b3624d464926"
       target="_blank"
       rel="noopener noreferrer"
-      className="col-span-1 md:col-span-2 md:row-span-1 relative overflow-hidden rounded-3xl bg-zinc-900/50 backdrop-blur-md border border-white/5 p-5 flex flex-col justify-between transition-all duration-300 hover:border-emerald-500/30 group"
+      className="col-span-1 md:col-span-2 md:row-span-1 relative overflow-hidden rounded-3xl bg-zinc-900/50 backdrop-blur-md border border-white/5 p-5 flex flex-col justify-between transition-all duration-300 hover:border-indigo-400/40 group shadow-sm hover:shadow-[0_0_35px_-5px_rgba(99,102,241,0.25)]"
     >
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent" />
+      {/* Top ambient indigo / moonlight shimmer */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-indigo-400/30 to-transparent" />
+
+      {/* Ambient background glow orb */}
+      <div className="pointer-events-none absolute -right-10 -bottom-10 w-40 h-40 rounded-full bg-indigo-500/10 blur-2xl group-hover:bg-indigo-500/20 transition-all duration-500" />
 
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between relative z-10">
         <div className="flex items-center gap-2">
-          <SpotifyIcon className="w-4 h-4 text-emerald-400" />
-          <span className="text-[11px] font-mono font-medium tracking-wider text-zinc-400 uppercase">
-            Playlist Favorita
+          <SpotifyIcon className="w-4 h-4 text-[#1DB954]" />
+          <span className="text-[11px] font-mono font-medium tracking-wider text-indigo-300 uppercase flex items-center gap-1">
+            <span>Playlist Favorita</span>
+            {isHalloween && <span className="text-xs">🎃</span>}
           </span>
         </div>
 
-        <span className="text-xs font-mono text-emerald-400/80 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+        <span className="text-xs font-mono text-indigo-300/90 flex items-center gap-1 group-hover:text-indigo-200 group-hover:translate-x-0.5 transition-all">
           <span>Ouvir</span>
           <ExternalLink className="w-3.5 h-3.5" />
         </span>
       </div>
 
-      {/* Playlist info */}
-      <div className="flex items-center gap-3.5 my-1">
-        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-zinc-800 to-emerald-950 border border-white/10 flex items-center justify-center text-emerald-400 shadow-md group-hover:scale-105 transition-transform">
-          <Music className="w-6 h-6" />
+      {/* Playlist info & Cover Art */}
+      <div className="flex items-center gap-3.5 my-1 relative z-10">
+        <div className="relative shrink-0 w-12 h-12 rounded-xl overflow-hidden border border-indigo-400/20 bg-zinc-950 shadow-md group-hover:scale-105 group-hover:border-indigo-400/50 transition-all duration-300">
+          <img
+            src={kogaCover}
+            alt="Koga 🌙"
+            className="w-full h-full object-cover"
+          />
         </div>
 
         <div className="min-w-0 flex-1">
-          <h2 className="text-sm font-semibold text-white tracking-tight group-hover:text-emerald-300 transition-colors">
-            CENA 0
+          <h2 className="text-sm font-semibold text-white tracking-tight group-hover:text-indigo-200 transition-colors flex items-center gap-1.5">
+            <span>Koga 🌙</span>
+            <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-400/20 font-normal">
+              73 faixas
+            </span>
           </h2>
-          <p className="text-xs text-zinc-400">
-            Teto, Matuê & Mais • Playlist Principal
+          <p className="text-xs text-zinc-400 truncate mt-0.5">
+            snow • Playlist Principal no Spotify
           </p>
         </div>
       </div>
 
       {/* Footer link line */}
-      <div className="text-[11px] font-mono text-zinc-500 flex items-center justify-between pt-1 border-t border-white/5">
-        <span>spotify.com/snowLH</span>
-        <span className="text-emerald-400/70">Tocar no Spotify ↗</span>
+      <div className="text-[11px] font-mono text-zinc-500 flex items-center justify-between pt-1 border-t border-white/5 relative z-10">
+        <span className="text-zinc-400">open.spotify.com/snow</span>
+        <span className="text-indigo-400/80 group-hover:text-indigo-300 transition-colors">Tocar no Spotify ↗</span>
       </div>
     </a>
   );

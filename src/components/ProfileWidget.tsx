@@ -1,32 +1,43 @@
 import { Sparkles, Terminal, Cpu, Code2, ArrowUpRight } from 'lucide-react';
 import type { DiscordPresenceData } from '../hooks/useDiscordPresence';
+import avatarImg from '../assets/avatar.png';
 
 interface ProfileWidgetProps {
   presence: DiscordPresenceData;
+  isHalloween?: boolean;
 }
 
-export function ProfileWidget({ presence }: ProfileWidgetProps) {
+export function ProfileWidget({ presence, isHalloween = false }: ProfileWidgetProps) {
+  // Use uploaded profile avatar, fallback to Discord avatar if needed
+  const displayAvatar = avatarImg || presence.avatarUrl;
+
   return (
-    <div className="col-span-1 md:col-span-2 md:row-span-2 relative overflow-hidden rounded-3xl bg-zinc-900/50 backdrop-blur-md border border-white/5 p-6 md:p-8 flex flex-col justify-between transition-all duration-300 hover:border-white/10 group">
+    <div className={`col-span-1 md:col-span-2 md:row-span-2 relative overflow-hidden rounded-3xl bg-zinc-900/50 backdrop-blur-md border border-white/5 p-6 md:p-8 flex flex-col justify-between transition-all duration-300 ${isHalloween ? 'hover:border-orange-500/30 shadow-sm hover:shadow-[0_0_35px_-5px_rgba(249,115,22,0.2)]' : 'hover:border-white/10'} group`}>
       {/* Subtle top edge shimmer */}
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent" />
+      <div
+        className={`absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent ${
+          isHalloween ? 'via-orange-500/30' : 'via-cyan-400/20'
+        } to-transparent`}
+      />
 
       {/* Top Header: Avatar + Status + Handle */}
       <div>
         <div className="flex items-start justify-between gap-4 mb-6">
           <div className="flex items-center gap-4">
-            {/* Discord Avatar with Live Status Halo */}
+            {/* Custom Manga Pumpkin Avatar with Status Halo */}
             <div className="relative group/avatar">
-              <div className="absolute -inset-1 rounded-full bg-cyan-500/20 opacity-70 blur-sm group-hover/avatar:opacity-100 transition duration-300 animate-pulse" />
+              <div
+                className={`absolute -inset-1 rounded-full ${
+                  isHalloween
+                    ? 'bg-gradient-to-tr from-orange-500/50 via-amber-400/40 to-purple-600/50 opacity-90 blur-md'
+                    : 'bg-cyan-500/20 opacity-70 blur-sm'
+                } group-hover/avatar:opacity-100 transition duration-300 animate-pulse`}
+              />
               <div className="relative h-16 w-16 md:h-20 md:w-20 rounded-full border border-white/10 bg-zinc-950 p-1 overflow-hidden shadow-inner">
                 <img
-                  src={presence.avatarUrl}
+                  src={displayAvatar}
                   alt={presence.username}
-                  className="w-full h-full rounded-full object-cover"
-                  onError={(e) => {
-                    // Fallback to stylized SVG avatar if image fails to load
-                    (e.target as HTMLElement).style.display = 'none';
-                  }}
+                  className="w-full h-full rounded-full object-cover group-hover/avatar:scale-105 transition-transform duration-300"
                 />
               </div>
 
@@ -41,15 +52,22 @@ export function ProfileWidget({ presence }: ProfileWidgetProps) {
 
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white group-hover:text-zinc-100 transition-colors">
-                  Henry
+                <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-white group-hover:text-zinc-100 transition-colors flex items-center gap-1.5">
+                  <span>Henry</span>
+                  {isHalloween && <span className="text-xl">🎃</span>}
                 </h1>
-                <span className="rounded-full bg-white/5 border border-white/10 px-2.5 py-0.5 text-xs font-mono text-cyan-300">
+                <span
+                  className={`rounded-full px-2.5 py-0.5 text-xs font-mono ${
+                    isHalloween
+                      ? 'bg-orange-500/10 border border-orange-500/30 text-orange-300'
+                      : 'bg-white/5 border border-white/10 text-cyan-300'
+                  }`}
+                >
                   @snowLH
                 </span>
               </div>
               <p className="text-xs md:text-sm text-zinc-400 mt-1 flex items-center gap-1.5 font-medium">
-                <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                <Sparkles className={`w-3.5 h-3.5 ${isHalloween ? 'text-orange-400' : 'text-cyan-400'}`} />
                 Discord: <span className="text-zinc-300 font-mono">@{presence.username}</span>
                 <span className="text-zinc-600">•</span>
                 <span className="text-zinc-400 font-mono text-xs">{presence.statusLabel}</span>
@@ -68,7 +86,7 @@ export function ProfileWidget({ presence }: ProfileWidgetProps) {
           </a>
         </div>
 
-        {/* Bio exigida */}
+        {/* Bio */}
         <p className="text-zinc-300 text-sm md:text-base leading-relaxed mb-6 font-normal">
           Apaixonado por tecnologia desde os 7 anos. Focado em desenvolvimento web, criação de apps e automação com IA. Transformando ideias em código.
         </p>
@@ -78,14 +96,18 @@ export function ProfileWidget({ presence }: ProfileWidgetProps) {
       <div className="pt-4 border-t border-white/5">
         <div className="flex flex-wrap gap-2">
           {[
-            { name: 'Full-Stack Dev', icon: Code2, color: 'text-cyan-400' },
-            { name: 'Next.js & React', icon: Terminal, color: 'text-sky-400' },
-            { name: 'Automação & IA', icon: Cpu, color: 'text-amber-300' },
-            { name: 'Tailwind CSS', icon: Sparkles, color: 'text-cyan-300' },
+            { name: 'Full-Stack Dev', icon: Code2, color: isHalloween ? 'text-orange-400' : 'text-cyan-400' },
+            { name: 'Next.js & React', icon: Terminal, color: isHalloween ? 'text-amber-300' : 'text-sky-400' },
+            { name: 'Automação & IA', icon: Cpu, color: isHalloween ? 'text-purple-400' : 'text-amber-300' },
+            { name: 'Tailwind CSS', icon: Sparkles, color: isHalloween ? 'text-orange-300' : 'text-cyan-300' },
           ].map((item) => (
             <span
               key={item.name}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono bg-white/[0.02] border border-white/5 text-zinc-300 hover:border-cyan-500/30 hover:text-cyan-200 transition-colors"
+              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono bg-white/[0.02] border border-white/5 text-zinc-300 ${
+                isHalloween
+                  ? 'hover:border-orange-500/30 hover:text-orange-200'
+                  : 'hover:border-cyan-500/30 hover:text-cyan-200'
+              } transition-colors`}
             >
               <item.icon className={`w-3.5 h-3.5 ${item.color}`} />
               {item.name}

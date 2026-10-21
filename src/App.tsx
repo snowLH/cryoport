@@ -19,6 +19,26 @@ import { useDiscordPresence } from './hooks/useDiscordPresence';
 
 export default function App() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Halloween mode state with localStorage persistence (defaults to true for spooky season!)
+  const [isHalloween, setIsHalloween] = useState<boolean>(() => {
+    try {
+      const saved = localStorage.getItem('cryo_halloween_mode');
+      return saved !== null ? saved === 'true' : true;
+    } catch {
+      return true;
+    }
+  });
+
+  const toggleHalloween = () => {
+    setIsHalloween((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem('cryo_halloween_mode', String(next));
+      } catch {}
+      return next;
+    });
+  };
   
   // Real-time Discord & Spotify presence via Lanyard API
   const presence = useDiscordPresence();
@@ -55,17 +75,27 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#050505] text-white selection:bg-cyan-500/20 selection:text-cyan-200 font-sans antialiased flex flex-col justify-between overflow-x-hidden">
+    <div className={`relative min-h-screen bg-[#050505] text-white ${isHalloween ? 'selection:bg-orange-500/20 selection:text-orange-200' : 'selection:bg-cyan-500/20 selection:text-cyan-200'} font-sans antialiased flex flex-col justify-between overflow-x-hidden`}>
       
       {/* =========================================================================
-          BACKGROUND: INTERACTIVE SNOW PARTICLES CANVAS
+          BACKGROUND: INTERACTIVE SPOOKY / SNOW PARTICLES CANVAS
           ========================================================================= */}
-      <SnowParticles />
+      <SnowParticles isHalloween={isHalloween} />
 
-      {/* Subtle Aurora Ambient Radial Lights */}
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-        <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-cyan-500/5 blur-[120px]" />
-        <div className="absolute top-1/2 -right-32 w-96 h-96 rounded-full bg-blue-500/5 blur-[140px]" />
+      {/* Aurora Ambient Radial Lights */}
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden transition-all duration-700">
+        {isHalloween ? (
+          <>
+            <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-orange-600/15 blur-[130px]" />
+            <div className="absolute top-1/2 -right-32 w-96 h-96 rounded-full bg-purple-600/15 blur-[140px]" />
+            <div className="absolute bottom-0 left-1/3 w-80 h-80 rounded-full bg-amber-600/10 blur-[120px]" />
+          </>
+        ) : (
+          <>
+            <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-cyan-500/5 blur-[120px]" />
+            <div className="absolute top-1/2 -right-32 w-96 h-96 rounded-full bg-blue-500/5 blur-[140px]" />
+          </>
+        )}
       </div>
 
       {/* Floating Copy Notification Toast */}
@@ -75,9 +105,9 @@ export default function App() {
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-900/90 border border-white/10 backdrop-blur-md shadow-xl text-xs font-mono text-cyan-200"
+            className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-900/90 border ${isHalloween ? 'border-orange-500/30 text-orange-200' : 'border-white/10 text-cyan-200'} backdrop-blur-md shadow-xl text-xs font-mono`}
           >
-            <Check className="w-3.5 h-3.5 text-cyan-400" />
+            <Check className={`w-3.5 h-3.5 ${isHalloween ? 'text-orange-400' : 'text-cyan-400'}`} />
             <span>{toastMessage}</span>
           </motion.div>
         )}
@@ -93,15 +123,47 @@ export default function App() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-6 flex items-center justify-between text-xs font-mono text-zinc-500 px-1"
+          className="mb-6 flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-zinc-500 px-1"
         >
           <div className="flex items-center gap-2">
-            <Snowflake className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
-            <span className="tracking-wider uppercase text-zinc-400">CRYO // PORTFOLIO</span>
+            {isHalloween ? (
+              <>
+                <span className="text-base animate-bounce">🎃</span>
+                <span className="tracking-wider uppercase text-orange-400 font-semibold">
+                  CRYO // HALLOWEEN EDITION
+                </span>
+                <span className="text-xs">🦇</span>
+              </>
+            ) : (
+              <>
+                <Snowflake className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
+                <span className="tracking-wider uppercase text-zinc-400 font-semibold">
+                  CRYO // PORTFOLIO
+                </span>
+              </>
+            )}
           </div>
-          <div className="flex items-center gap-2">
-            <span className={`w-1.5 h-1.5 rounded-full ${presence.isLive ? 'bg-emerald-500' : 'bg-cyan-500'}`} />
-            <span>Lanyard Live: {presence.isLive ? 'Conectado' : 'Standby'}</span>
+
+          <div className="flex items-center gap-3">
+            {/* Halloween / Normal Theme Toggle Button */}
+            <button
+              onClick={toggleHalloween}
+              type="button"
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-full border transition-all text-xs font-mono cursor-pointer ${
+                isHalloween
+                  ? 'bg-orange-500/10 border-orange-500/30 text-orange-300 hover:bg-orange-500/20'
+                  : 'bg-white/5 border-white/10 text-cyan-300 hover:bg-white/10'
+              }`}
+              title="Clique para alternar entre o tema Halloween e o tema Normal"
+            >
+              <span>{isHalloween ? '🎃 Tema Halloween' : '❄️ Tema Normal'}</span>
+              <span className="text-[10px] text-zinc-500">(trocar)</span>
+            </button>
+
+            <div className="flex items-center gap-1.5 text-zinc-400">
+              <span className={`w-1.5 h-1.5 rounded-full ${presence.isLive ? 'bg-emerald-500' : 'bg-cyan-500'}`} />
+              <span>Lanyard: {presence.isLive ? 'Live' : 'Standby'}</span>
+            </div>
           </div>
         </motion.div>
 
@@ -114,7 +176,7 @@ export default function App() {
         >
           {/* Row 1 & 2: 1. PROFILE WIDGET (2 colunas, 2 linhas) */}
           <motion.div variants={itemVariants} className="col-span-1 md:col-span-2 md:row-span-2">
-            <ProfileWidget presence={presence} />
+            <ProfileWidget presence={presence} isHalloween={isHalloween} />
           </motion.div>
 
           {/* Row 1: 2. CRYOHIVE WIDGET (2 colunas, 1 linha) */}
@@ -129,7 +191,7 @@ export default function App() {
 
           {/* Row 3: 4. SPOTIFY / LANYARD SYNC WIDGET (2 colunas, 1 linha) */}
           <motion.div variants={itemVariants} className="col-span-1 md:col-span-2 md:row-span-1">
-            <SpotifyWidget presence={presence} />
+            <SpotifyWidget presence={presence} isHalloween={isHalloween} />
           </motion.div>
 
           {/* Row 3: 5. GITHUB MINI WIDGET (1 coluna, 1 linha) */}
@@ -210,9 +272,9 @@ export default function App() {
         <div className="flex items-center justify-center gap-2">
           <span>Henry (@snowLH)</span>
           <span>•</span>
-          <span>React 19 & Tailwind CSS</span>
+          <span>{isHalloween ? '🎃 Spooky Cryo Edition' : '❄️ Cryo Dark Aesthetic'}</span>
           <span>•</span>
-          <span className="text-zinc-500">Cryo Dark Aesthetic</span>
+          <span className="text-zinc-500">React 19 & Tailwind</span>
         </div>
       </footer>
 

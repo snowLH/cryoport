@@ -84,7 +84,7 @@ export function useDiscordPresence(discordId: string = DEFAULT_DISCORD_ID): Disc
   return {
     username: 'snow_lh',
     globalName: 'Henry',
-    avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=256&auto=format&fit=crop&q=80',
+    avatarUrl: '/avatar.png',
     status: 'online',
     statusColor: 'bg-emerald-500',
     statusLabel: 'Online',
