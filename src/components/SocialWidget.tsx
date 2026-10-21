@@ -10,7 +10,6 @@ interface SocialWidgetProps {
   hoverBorder?: string;
   isAction?: boolean;
   onActionClick?: () => void;
-  isHalloween?: boolean;
 }
 
 export function SocialWidget({
@@ -22,46 +21,28 @@ export function SocialWidget({
   hoverBorder = "hover:border-white/20",
   isAction = false,
   onActionClick,
-  isHalloween = true,
 }: SocialWidgetProps) {
   const content = (
-    <div className={`h-full w-full relative overflow-hidden rounded-3xl bg-zinc-900/50 backdrop-blur-md border ${
-      isHalloween ? 'border-orange-500/20' : 'border-white/5'
-    } p-5 flex flex-col items-center justify-center text-center transition-all duration-300 hover:scale-105 ${hoverBorder} group cursor-pointer shadow-sm`}>
+    <div className={`h-full w-full relative overflow-hidden rounded-3xl bg-zinc-900/50 backdrop-blur-md border border-white/5 p-5 flex flex-col items-center justify-center text-center transition-all duration-300 hover:scale-105 ${hoverBorder} group cursor-pointer shadow-sm`}>
       {/* Subtle top shimmer */}
-      <div className={`absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent ${
-        isHalloween ? 'via-orange-500/40' : 'via-white/10'
-      } to-transparent`} />
-
-      {/* Spooky corner pumpkin */}
-      {isHalloween && (
-        <span className="absolute top-2.5 left-3 text-xs select-none opacity-60 group-hover:opacity-100 group-hover:scale-125 transition-all">
-          🎃
-        </span>
-      )}
+      <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
       {/* External link indicator */}
-      <div className={`absolute top-3.5 right-3.5 ${
-        isHalloween ? 'text-orange-400/60 group-hover:text-orange-300' : 'text-zinc-600 group-hover:text-zinc-300'
-      } transition-colors`}>
+      <div className="absolute top-3.5 right-3.5 text-zinc-600 group-hover:text-zinc-300 transition-colors">
         <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
       </div>
 
       {/* Centered Large Icon */}
-      <div className={`mb-3 p-3 rounded-2xl ${
-        isHalloween ? 'bg-orange-500/10 border border-orange-500/20 group-hover:bg-orange-500/20' : 'bg-white/[0.03] border border-white/5 group-hover:bg-white/[0.08]'
-      } transition-colors ${accentColor}`}>
+      <div className={`mb-3 p-3 rounded-2xl bg-white/[0.03] border border-white/5 group-hover:bg-white/[0.08] transition-colors ${accentColor}`}>
         {icon}
       </div>
 
       {/* Title & Handle */}
       <div>
-        <h3 className="text-sm font-semibold text-white tracking-tight group-hover:text-orange-100 transition-colors">
+        <h3 className="text-sm font-semibold text-white tracking-tight group-hover:text-cyan-100 transition-colors">
           {title}
         </h3>
-        <p className={`text-[11px] font-mono ${
-          isHalloween ? 'text-orange-300/80 group-hover:text-orange-200' : 'text-zinc-400 group-hover:text-zinc-300'
-        } mt-0.5 transition-colors`}>
+        <p className="text-[11px] font-mono text-zinc-400 group-hover:text-zinc-300 mt-0.5 transition-colors">
           {handle}
         </p>
       </div>
