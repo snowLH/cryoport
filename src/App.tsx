@@ -181,12 +181,12 @@ export default function App() {
 
           {/* Row 1: 2. CRYOHIVE WIDGET (2 colunas, 1 linha) */}
           <motion.div variants={itemVariants} className="col-span-1 md:col-span-2 md:row-span-1">
-            <CryoHiveWidget />
+            <CryoHiveWidget isHalloween={isHalloween} />
           </motion.div>
 
           {/* Row 2: 3. AEGIS AI PROJECT (2 colunas, 1 linha) */}
           <motion.div variants={itemVariants} className="col-span-1 md:col-span-2 md:row-span-1">
-            <SecondProjectWidget />
+            <SecondProjectWidget isHalloween={isHalloween} />
           </motion.div>
 
           {/* Row 3: 4. SPOTIFY / LANYARD SYNC WIDGET (2 colunas, 1 linha) */}
@@ -197,69 +197,74 @@ export default function App() {
           {/* Row 3: 5. GITHUB MINI WIDGET (1 coluna, 1 linha) */}
           <motion.div variants={itemVariants} className="col-span-1 md:col-span-1 md:row-span-1">
             <SocialWidget
-              title="GitHub"
+              title={isHalloween ? "GitHub 🎃" : "GitHub"}
               handle="@snowLH"
               href="https://github.com/snowLH"
               icon={<GithubLogo className="w-7 h-7" />}
-              hoverBorder="hover:border-white/20"
+              hoverBorder={isHalloween ? "hover:border-orange-500/50 hover:shadow-[0_0_25px_rgba(249,115,22,0.25)]" : "hover:border-white/20"}
+              isHalloween={isHalloween}
             />
           </motion.div>
 
           {/* Row 3: 6. DISCORD MINI WIDGET (1 coluna, 1 linha) */}
           <motion.div variants={itemVariants} className="col-span-1 md:col-span-1 md:row-span-1">
             <SocialWidget
-              title="Discord"
+              title={isHalloween ? "Discord 🎃" : "Discord"}
               handle={`@${presence.username}`}
               href="#"
               isAction={true}
               onActionClick={() => handleCopy(presence.username, 'Discord Tag')}
               icon={<DiscordLogo className="w-7 h-7" />}
-              accentColor="text-indigo-400 group-hover:text-indigo-300"
-              hoverBorder="hover:border-indigo-500/20"
+              accentColor={isHalloween ? "text-orange-400 group-hover:text-orange-300" : "text-indigo-400 group-hover:text-indigo-300"}
+              hoverBorder={isHalloween ? "hover:border-orange-500/50 hover:shadow-[0_0_25px_rgba(249,115,22,0.25)]" : "hover:border-indigo-500/20"}
+              isHalloween={isHalloween}
             />
           </motion.div>
 
           {/* Row 4: 7. E-MAIL MINI WIDGET (1 coluna, 1 linha) */}
           <motion.div variants={itemVariants} className="col-span-1 md:col-span-1 md:row-span-1">
             <SocialWidget
-              title="E-mail"
+              title={isHalloween ? "E-mail 🎃" : "E-mail"}
               handle="henrysoldan@gmail.com"
               href="#"
               isAction={true}
               onActionClick={() => handleCopy('henrysoldan@gmail.com', 'E-mail')}
               icon={<Mail className="w-7 h-7" />}
-              accentColor="text-emerald-400 group-hover:text-emerald-300"
-              hoverBorder="hover:border-emerald-500/20"
+              accentColor={isHalloween ? "text-amber-400 group-hover:text-amber-300" : "text-emerald-400 group-hover:text-emerald-300"}
+              hoverBorder={isHalloween ? "hover:border-orange-500/50 hover:shadow-[0_0_25px_rgba(249,115,22,0.25)]" : "hover:border-emerald-500/20"}
+              isHalloween={isHalloween}
             />
           </motion.div>
 
           {/* Row 4: 8. INSTAGRAM MINI WIDGET (1 coluna, 1 linha) */}
           <motion.div variants={itemVariants} className="col-span-1 md:col-span-1 md:row-span-1">
             <SocialWidget
-              title="Instagram"
+              title={isHalloween ? "Instagram 🎃" : "Instagram"}
               handle="@henry_bestsw"
               href="https://www.instagram.com/henry_bestsw/"
               icon={<InstagramLogo className="w-7 h-7" />}
-              accentColor="text-pink-400 group-hover:text-pink-300"
-              hoverBorder="hover:border-pink-500/20"
+              accentColor={isHalloween ? "text-orange-400 group-hover:text-pink-300" : "text-pink-400 group-hover:text-pink-300"}
+              hoverBorder={isHalloween ? "hover:border-orange-500/50 hover:shadow-[0_0_25px_rgba(249,115,22,0.25)]" : "hover:border-pink-500/20"}
+              isHalloween={isHalloween}
             />
           </motion.div>
 
           {/* Row 4: 9. ROBLOX MINI WIDGET (1 coluna, 1 linha) */}
           <motion.div variants={itemVariants} className="col-span-1 md:col-span-1 md:row-span-1">
             <SocialWidget
-              title="Roblox"
+              title={isHalloween ? "Roblox 🎃" : "Roblox"}
               handle="Henry"
               href="https://www.roblox.com/users/148506481/profile"
               icon={<RobloxLogo className="w-7 h-7" />}
-              accentColor="text-red-400 group-hover:text-red-300"
-              hoverBorder="hover:border-red-500/20"
+              accentColor={isHalloween ? "text-amber-500 group-hover:text-amber-400" : "text-red-400 group-hover:text-red-300"}
+              hoverBorder={isHalloween ? "hover:border-orange-500/50 hover:shadow-[0_0_25px_rgba(249,115,22,0.25)]" : "hover:border-red-500/20"}
+              isHalloween={isHalloween}
             />
           </motion.div>
 
           {/* Row 4: 10. STATUS & CLOCK WIDGET (1 coluna, 1 linha) */}
           <motion.div variants={itemVariants} className="col-span-1 md:col-span-1 md:row-span-1">
-            <StatusClockWidget />
+            <StatusClockWidget isHalloween={isHalloween} />
           </motion.div>
 
         </motion.div>
